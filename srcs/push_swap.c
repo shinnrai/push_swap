@@ -15,13 +15,20 @@
 
 void	push_swap(t_info *info)
 {
-	//t_list	*excl;
+	t_list	*excl;
 	t_info	*rev_info;
 
-	//excl = find_ecl_seq(info);
-	push_to(info); // was excl
+	if (info->size > 10)
+		excl = find_excl_seq(info);
+	else
+		excl = NULL;
+
+
+
+
+	push_to(info, excl); // was excl
 	rev_info = reverse_info(info);
-	push_to(rev_info);
+	push_to(rev_info, NULL);
 	merge_infos(info, rev_info);
 	end_rotate(info);
 	del_rev_info(&rev_info);
@@ -46,7 +53,8 @@ int	main(int argc, char **argv)
 
 	info = receive_values(argc, argv);
 	push_swap(info);
-	ft_putendl(info->ops);
+	if (*info->ops)
+		ft_putendl(info->ops);
 	del_info(&info);
 
 }

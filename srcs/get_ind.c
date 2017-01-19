@@ -118,7 +118,7 @@ static int	**calc_how_many_ops(t_info *info)
 	return (ops);
 }
 
-int		*get_ind(t_info *info)
+int		*get_ind(t_info *info, t_list *excl)
 {
 	int 			i;
 	int 			**ops;
@@ -131,7 +131,7 @@ int		*get_ind(t_info *info)
 	min_ind = -1; // can cause seg fault
 	i = -1;
 	while (++i < info->a_size)
-		if ((min_ind == -1 || ops[i][0] < ops[min_ind][0]))// && !ft_lstfindfirst(excl, &info->a[i], sizeof(int)))
+		if ((min_ind == -1 || ops[i][0] < ops[min_ind][0]) && !ft_lstfindfirst(excl, &info->a[i], sizeof(int)))
 		{
 			if (min_ind != -1)
 				free(ops[min_ind]);

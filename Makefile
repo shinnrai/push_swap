@@ -6,7 +6,7 @@
 #    By: ofedorov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/26 12:41:24 by ofedorov          #+#    #+#              #
-#    Updated: 2017/01/18 15:08:11 by ofedorov         ###   ########.fr        #
+#    Updated: 2017/01/18 23:03:49 by ofedorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS		=	-Wall -Werror -Wextra
 
 SRCSFL		+=	check_atoi.c display_stack.c end_rotate.c exec_instr.c \
 				exec_instr_r.c exec_instr_rr.c exec_instr_s_p.c \
-				get_ind.c info_utils.c push_to.c receive_values.c optimizer.c
+				get_ind.c info_utils.c push_to.c receive_values.c optimizer.c \
+				find_excl_seq.c
 PSMAIN		=	push_swap.c
 CHECKERMAIN	=	checker.c
 
@@ -40,17 +41,17 @@ LIBFTLIB	=	-Llibft -lft
 
 all: $(PUSHSWAP) $(CHECKER)
 
-$(PUSHSWAP): $(OBJSPS)
+$(PUSHSWAP): $(OBJSPS) $(LIBFT)
 	$(CC) $(CFLAGS) $(addprefix -I ,$(INCLFD)) $(OBJSPS) $(LIBFTLIB) -o $@
 
-$(CHECKER): $(OBJSCHECKER)
+$(CHECKER): $(OBJSCHECKER) $(LIBFT)
 	$(CC) $(CFLAGS) $(addprefix	-I ,$(INCLFD)) $(OBJSCHECKER) $(LIBFTLIB) -o $@
 
 $(OBJSFD):
 	mkdir $@
 
 $(LIBFT): $(LIBFTFD)
-	make -C $(LIBFTFD) re
+	make -C libft re
 
 $(OBJSFD)/%.o: $(SRCSFD)/%.c | $(OBJSFD)
 	$(CC) $(CFLAGS) $(addprefix -I ,$(INCLFD)) -c $< -o $@

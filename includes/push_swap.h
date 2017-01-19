@@ -15,7 +15,6 @@
 
 # include <libft.h>
 # include <libftprintf.h>
-# include <get_next_line.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -51,7 +50,7 @@ typedef struct		s_info
 t_info				*receive_values(int ac, char **av);
 int 				check_atoi(char *str);
 void				push_swap(t_info *info);
-void				push_to(t_info *info);
+void				push_to(t_info *info, t_list *excl);
 
 void				display_a(t_info *info);
 void				display_b(t_info *info);
@@ -72,7 +71,7 @@ void				exec_instr_rrr(t_info *info);
 
 t_list				*find_excl_seq(t_info *info);
 int 				*calc_one(t_info *info, int i_a);
-int					*get_ind(t_info *info);
+int					*get_ind(t_info *info, t_list *excl);
 void				add_instr(t_info *info, int instr);
 void				exec_instr(t_info *info, int instr);
 void				add_and_exec(t_info *info, int instr);

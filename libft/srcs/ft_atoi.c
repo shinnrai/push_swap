@@ -42,7 +42,7 @@ static long long	posnbr(const char *str)
 		number = number * 10 + (*str - '0');
 		str++;
 	}
-	return ((int)number);
+	return (number);
 }
 
 long long			ft_atoi(const char *str)

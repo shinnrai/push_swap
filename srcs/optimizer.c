@@ -28,7 +28,7 @@ char	*optimize(char *ops)
 	int 			len;
 
 	len = ft_strlen(ops);
-	str = ft_memalloc(len);
+	str = ft_memalloc(len + 1);
 	i = 0;
 	j = 0;
 	while (i < len)

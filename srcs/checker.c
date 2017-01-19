@@ -12,9 +12,27 @@
 
 #include <push_swap.h>
 
+#define BUFF_SIZE 2048
+
 void	receive_instr(t_info *info)
 {
-	
+	char	*buff;
+	char	*str;
+
+	buff = ft_memalloc(sizeof(char) * BUFF_SIZE);
+	while (read(0, buff, BUFF_SIZE - 1))
+	{
+		if (info->ops)
+		{
+			str = info->ops;
+			info->ops = ft_strjoin(info->ops, buff);
+			free(str);
+		}
+		else
+			info->ops = buff;
+		ft_bzero(buff, ft_strlen(buff));
+	}
+	free(buff);
 }
 
 int 	get_next_instr(char **instr)
@@ -68,12 +86,12 @@ int		main(int argc, char **argv)
 	int 	result;
 
 	info = receive_values(argc, argv);
-
+	receive_instr(info);
 	result = checker(info);
 	if (result == -1)
-		ft_error(NULL);
+		ft_error(NULL);//check in subject
 	else if (result == 0)
-		ft_putstr("KO");
+		ft_putendl("KO");
 	else
-		ft_putstr("OK");
+		ft_putendl("OK");
 }
