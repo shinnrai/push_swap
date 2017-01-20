@@ -12,18 +12,20 @@
 
 #include <push_swap.h>
 
-//static int		count_size(int *curr, int size_arr)
-//{
-//	register int	i;
-//	int 			size;
-//
-//	size = 0;
-//	i = -1;
-//	while (++i < size_arr)
-//		if (curr[i])
-//			size++;
-//	return (size);
-//}
+static int		count_size(int *curr, int size_arr)
+{
+	register int	i;
+	int 			size;
+
+	size = 0;
+	i = -1;
+	if (!curr)
+		return (0);
+	while (++i < size_arr)
+		if (curr[i])
+			size++;
+	return (size);
+}
 
 //static int		*rec_seq(t_info *info, int ind, int start_ind, int *curr)
 //{
@@ -63,6 +65,8 @@
 //}
 
 t_list	*find_excl(t_info *info);
+static t_list	*transform(int *seq, t_info *info);
+int	*find_excl_rec(t_info *info, int *curr, int ind, int prev_ind);
 
 static t_list	*find_seq(t_info *info)
 {
@@ -72,11 +76,15 @@ static t_list	*find_seq(t_info *info)
 //	int *max;
 	t_list	*max;
 	t_list	*tmp;
+	int 	*curr;
 
 	i = -1;
 	max = NULL;
+	curr = malloc(sizeof(int) * info->a_size);
 	while (++i < info->a_size)
 	{
+		ft_bzero(curr, sizeof(int) * info->a_size);
+		curr[0] = 1;
 		tmp = find_excl(info);
 		if (!max)
 			max = tmp;
@@ -142,7 +150,17 @@ t_list			*find_excl_seq(t_info *info)
 
 
 
+int		is_better(t_info *info, int ind, int prev_val)
+{
+	register int	i;
 
+	i = ind + info->a_size / 30;
+	(i > info->a_size) ? i = info->a_size: (0);
+	while (--i > ind)
+		if (info->a[i] < info->a[ind] && info->a[i] > prev_val)
+			return (0);
+	return (0);
+}
 
 
 
@@ -160,7 +178,7 @@ t_list	*find_excl(t_info *info)
 	prev_val = info->a[0];
 	while (++i < info->a_size)
 	{
-		if (info->a[i] > prev_val)
+		if (info->a[i] > prev_val && !is_better(info, i, prev_val))
 		{
 			arr[i] = 1;
 			prev_val = info->a[i];
@@ -175,7 +193,41 @@ t_list	*find_excl(t_info *info)
 
 
 
+int	*find_excl_rec(t_info *info, int *curr, int ind, int prev_ind)
+{
+	int				*ret_incl;
+	int 			*ret_nincl;
+	register int	i;
 
+	if (ind == info->a_size)
+		return (ft_memcpy(malloc(sizeof(int) * info->a_size), curr, sizeof(int) * info->a_size)); // return complete
+	if (info->a[ind] > info->a[prev_ind]) //incl or nincl
+	{
+		ret_nincl = find_excl_rec(info, curr, ind + 1, prev_ind);
+		curr[ind] = 1;
+		ret_incl = find_excl_rec(info, curr, ind + 1, ind);
+		curr[ind] = 0;
+	}
+	else //nincl
+	{
+		ret_incl = NULL;
+		ret_nincl = find_excl_rec(info, curr, ind + 1, prev_ind);
+	}
+	if (count_size(ret_incl, info->a_size) + 1 > count_size(ret_nincl, info->a_size))
+	{
+		free(ret_nincl);//here can cause segfault
+		i = ind + 1;
+		while (i < info->a_size && info->a[i] < info->a[prev_ind])
+			i++;
+		ret_nincl = find_excl_rec(info, curr, i, prev_ind);
+		return (ret_incl);
+	}
+	else
+	{
+		(ret_incl) ? free(ret_incl) : (0);
+		return (ret_nincl);
+	}
+}
 
 
 

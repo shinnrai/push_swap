@@ -6,7 +6,7 @@
 #    By: ofedorov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/23 12:56:49 by ofedorov          #+#    #+#              #
-#    Updated: 2017/01/16 16:20:26 by ofedorov         ###   ########.fr        #
+#    Updated: 2017/01/19 11:03:33 by ofedorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,26 +65,24 @@ NC		=	\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(GREEN)Objects created.$(NC)"
+	@echo "$(GREEN)Libft objects created.$(NC)"
 	@ar src $@ $(OBJS)
 	@ranlib $@
-	@echo "$(GREEN)Library created.$(NC)"
+	@echo "$(GREEN)Libft created.$(NC)"
 
 $(OBJSFD):
 	@mkdir $@ $(ADDFD)
-	@echo "$(GREEN)Folder for objects created.$(NC)"
 
 $(OBJSFD)/%.o: $(SRCSFD)/%.c | $(OBJSFD)
 	@$(CC) $(CFLAGS) -I$(INCLFD) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJS)
-	@echo "$(RED)Objects deleted.$(NC)"
+	@echo "$(RED)Libft objects deleted.$(NC)"
 	@rm -rf $(OBJSFD)
-	@echo "$(RED)Folder for objects deleted.$(NC)"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "$(RED)Library deleted.$(NC)"
+	@echo "$(RED)Libft deleted.$(NC)"
 
 re: fclean all

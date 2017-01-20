@@ -15,20 +15,11 @@
 
 void	push_swap(t_info *info)
 {
-	t_list	*excl;
 	t_info	*rev_info;
 
-	if (info->size > 10)
-		excl = find_excl_seq(info);
-	else
-		excl = NULL;
-
-
-
-
-	push_to(info, excl); // was excl
+	push_to(info); // was excl
 	rev_info = reverse_info(info);
-	push_to(rev_info, NULL);
+	push_to(rev_info);
 	merge_infos(info, rev_info);
 	end_rotate(info);
 	del_rev_info(&rev_info);
@@ -38,11 +29,11 @@ void	push_swap(t_info *info)
 
 //	ft_putnbr(i);
 //
-//	while (lst)
+//	while (excl)
 //	{
-//		ft_putnbr(*(int*)lst->content);
+//		ft_putnbr(*(int*)excl->content);
 //		write(1, "\t", 1);
-//		lst = lst->next;
+//		excl = excl->next;
 //	}
 
 }

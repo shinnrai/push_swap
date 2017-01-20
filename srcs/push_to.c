@@ -25,16 +25,13 @@ void	do_three(t_info *info)
 	}
 }
 
-void	push_to(t_info *info, t_list *excl)
+void	push_to(t_info *info)
 {
 	int 	*rot;
-	int 	excl_len;
 
-	excl_len = ft_lstlen(excl);
-	while (((!info->reversed && (info->a_size > 3 && info->a_size > excl_len)) || info->reversed) &&
-			info->a_size > 0)
+	while (((!info->reversed && (info->a_size > 3)) || info->reversed) && info->a_size > 0)
 	{
-		rot = get_ind(info, excl); // can return -1 ?
+		rot = get_ind(info); // can return -1 ?
 		while ((rot[0])-- > 0)
 		{
 			if (rot[1] && info->a[0] != rot[2] && info->b_size && info->b[0] != rot[3])
