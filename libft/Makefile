@@ -41,6 +41,7 @@ PRNTFFL	+=	format_a.c format_another.c format_c.c format_d.c format_e.c \
 			ft_printf_read_format.c ft_printf_read_utils.c \
 			ft_printf_write.c
 SRCSFL	+=	$(addprefix $(PRNTFFD)/, $(PRNTFFL))
+SRCSFL  +=  ft_textcolor.c
 
 OBJSFD	=	objs
 SRCSFD	=	srcs

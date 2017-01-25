@@ -35,33 +35,6 @@ void	receive_instr(t_info *info)
 	free(buff);
 }
 
-int 	get_next_instr(char **instr)
-{
-	int instr_res;
-
-	instr_res = -1;
-	if (!(**instr))
-		return (-1);
-	(!ft_strncmp(*instr, "sa", 2)) ? instr_res = INSTR_SA : (0);
-	(!ft_strncmp(*instr, "sb", 2)) ? instr_res = INSTR_SB : (0);
-	(!ft_strncmp(*instr, "ss", 2)) ? instr_res = INSTR_SS : (0);
-	(!ft_strncmp(*instr, "pa", 2)) ? instr_res = INSTR_PA : (0);
-	(!ft_strncmp(*instr, "pb", 2)) ? instr_res = INSTR_PB : (0);
-	(!ft_strncmp(*instr, "ra", 2)) ? instr_res = INSTR_RA : (0);
-	(!ft_strncmp(*instr, "rb", 2)) ? instr_res = INSTR_RB : (0);
-	(!ft_strncmp(*instr, "rr", 2)) ? instr_res = INSTR_RR : (0);
-	(!ft_strncmp(*instr, "rra", 3)) ? instr_res = INSTR_RRA : (0);
-	(!ft_strncmp(*instr, "rrb", 3)) ? instr_res = INSTR_RRB : (0);
-	(!ft_strncmp(*instr, "rrr", 3)) ? instr_res = INSTR_RRR : (0);
-	if (instr_res != -1)
-		(*instr) += 2;
-	if (instr_res >= INSTR_RRA)
-		(*instr)++;
-	if (**instr == '\n' && instr_res != -1)
-		(*instr)++;
-	return (instr_res);
-}
-
 int 	checker(t_info *info)
 {
 	int				instr;

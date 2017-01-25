@@ -18,6 +18,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+/*
+**  c - color
+**  d - display stacks
+**  n - number of ops
+**  s - print slow
+**  q - quantity of each op
+*/
+
 typedef struct		s_info
 {
 	int 			*a;
@@ -26,7 +34,12 @@ typedef struct		s_info
 	int 			b_size;
 	int 			size;
 	char 			*ops;
-	int				reversed;
+	bool			reversed;
+	bool 			color;
+	bool 			display_stacks;
+	bool			print_slow;
+	bool			display_number;
+	bool			each_op;
 }					t_info;
 
 # define INSTR_SA	0
@@ -47,6 +60,11 @@ typedef struct		s_info
 # define HOW_MANY_TO_RR(a, b) MAX((a), (b))
 # define HOW_MANY_TO_RRR(a, b, s_a, s_b) MAX((s_a) - (a), (s_b) - (b))
 
+# define A_COLOR BRIGHT, GREEN, BLACK
+# define B_COLOR BRIGHT, RED, BLACK
+# define R_COLOR BRIGHT, BLUE, BLACK
+# define DIS_COLOR BRIGHT, YELLOW, BLACK
+
 t_info				*receive_values(int ac, char **av);
 int 				check_atoi(char *str);
 void				push_swap(t_info *info);
@@ -55,6 +73,7 @@ void				push_to(t_info *info);
 void				display_a(t_info *info);
 void				display_b(t_info *info);
 void				display_ab(t_info *info);
+void				display_instr(int instr, bool color);
 
 void				exec_instr_sa(t_info *info);
 void				exec_instr_sb(t_info *info);
@@ -79,6 +98,10 @@ void				del_info(t_info **info);
 void				del_rev_info(t_info **rev_info);
 t_info				*reverse_info(t_info *info);
 void				merge_infos(t_info *info, t_info *rev_info);
+t_info				*copy_info(t_info *info);
 void				end_rotate(t_info *info);
 char				*optimize(char *ops);
+
+int 				get_next_instr(char **instr);
+
 #endif

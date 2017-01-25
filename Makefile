@@ -19,7 +19,7 @@ CFLAGS		=	-Wall -Werror -Wextra
 SRCSFL		+=	check_atoi.c display_stack.c end_rotate.c exec_instr.c \
 				exec_instr_r.c exec_instr_rr.c exec_instr_s_p.c \
 				get_ind.c info_utils.c push_to.c receive_values.c optimizer.c \
-				find_excl_seq.c
+                get_next_instr.c
 PSMAIN		=	push_swap.c
 CHECKERMAIN	=	checker.c
 

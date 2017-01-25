@@ -59,8 +59,5 @@ char	*optimize(char *ops)
 		}
 		i += 3;
 	}
-	free(ops);
-	ops = ft_strdup(str);
-	free(str);
-	return (ops);
+	return (str);
 }
