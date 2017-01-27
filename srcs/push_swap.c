@@ -98,4 +98,5 @@ int		main(int argc, char **argv)
 	if (ops)
 		print_result(ops, cp_info);
 	del_info(&info);
+	del_info(&cp_info);
 }

@@ -15,6 +15,7 @@
 void	add_instr(t_info *info, int instr)
 {
 	char	*arr[11];
+	char	*str;
 
 	arr[INSTR_SA] = "sa\n";
 	arr[INSTR_SB] = "sb\n";
@@ -27,7 +28,9 @@ void	add_instr(t_info *info, int instr)
 	arr[INSTR_RRA] = "rra\n";
 	arr[INSTR_RRB] = "rrb\n";
 	arr[INSTR_RRR] = "rrr\n";
-	info->ops = ft_strjoin(info->ops, arr[instr]); //TODO free prev str
+	str = info->ops;
+	info->ops = ft_strjoin(info->ops, arr[instr]);
+	free(str);
 }
 
 void	exec_instr(t_info *info, int instr)

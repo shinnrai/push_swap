@@ -51,7 +51,12 @@ void	merge_infos(t_info *info, t_info *rev_info)
 		rev_ops++;
 	}
 	if (*ops)
-		info->ops = ft_strjoin(info->ops, ops);//TODO free prev str
+	{
+		rev_ops = info->ops;
+		info->ops = ft_strjoin(info->ops, ops);
+		free(rev_ops);
+	}
+	free(ops);
 }
 
 t_info	*copy_info(t_info *info)
@@ -85,7 +90,7 @@ t_info	*reverse_info(t_info *info)
 	rev_info->b_size = info->a_size;
 	rev_info->a = info->b;
 	rev_info->a_size = info->b_size;
-	rev_info->ops = ft_strnew(0);
+	rev_info->ops = ft_sstrnew(0);
 	rev_info->size = info->size;
 	rev_info->reversed = true;
 	return (rev_info);

@@ -28,15 +28,15 @@
 
 typedef struct		s_info
 {
-	int 			*a;
-	int 			*b;
-	int 			a_size;
-	int 			b_size;
-	int 			size;
-	char 			*ops;
+	int				*a;
+	int				*b;
+	int				a_size;
+	int				b_size;
+	int				size;
+	char			*ops;
 	bool			reversed;
-	bool 			color;
-	bool 			display_stacks;
+	bool			color;
+	bool			display_stacks;
 	bool			print_slow;
 	bool			display_number;
 	bool			each_op;
@@ -66,7 +66,7 @@ typedef struct		s_info
 # define DIS_COLOR BRIGHT, YELLOW, BLACK
 
 t_info				*receive_values(int ac, char **av);
-int 				check_atoi(char *str);
+int					check_atoi(char *str);
 void				push_swap(t_info *info);
 void				push_to(t_info *info);
 
@@ -87,9 +87,8 @@ void				exec_instr_rra(t_info *info);
 void				exec_instr_rrb(t_info *info);
 void				exec_instr_rrr(t_info *info);
 
-
 t_list				*find_excl_seq(t_info *info);
-int 				*calc_one(t_info *info, int i_a);
+int					*calc_one(t_info *info, int i_a);
 int					*get_ind(t_info *info);
 void				add_instr(t_info *info, int instr);
 void				exec_instr(t_info *info, int instr);
@@ -102,6 +101,6 @@ t_info				*copy_info(t_info *info);
 void				end_rotate(t_info *info);
 char				*optimize(char *ops);
 
-int 				get_next_instr(char **instr);
+int					get_next_instr(char **instr);
 
 #endif
