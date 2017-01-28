@@ -76,10 +76,10 @@ t_info		*receive_values(int argc, char **argv)
 	if (argc == 1)
 	{
 		argv = ft_strsplit(argv[0], ' ');
-		i = 0;
-		while (argv[i])
-			i++;
-		argc = i;
+		argc = 0;
+		while (argv && argv[argc])
+			argc++;
+		(argc == 0) ? ft_error(NULL) : (0);
 	}
 	setup_info(info, argc);
 	i = argc;
