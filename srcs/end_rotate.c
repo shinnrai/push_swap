@@ -15,7 +15,7 @@
 void	end_rotate(t_info *info)
 {
 	register int	i;
-	int 			min_ind;
+	int				min_ind;
 
 	i = 0;
 	min_ind = 0;

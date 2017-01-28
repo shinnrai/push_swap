@@ -35,7 +35,7 @@ void	receive_instr(t_info *info)
 	free(buff);
 }
 
-int 	checker(t_info *info)
+int		checker(t_info *info)
 {
 	int				instr;
 	register int	i;
@@ -46,7 +46,7 @@ int 	checker(t_info *info)
 		return (-1);
 	i = 0;
 	if (info->a_size != info->size || info->b_size != 0)
-			return (0);
+		return (0);
 	while (++i < info->a_size)
 		if (info->a[i] < info->a[i - 1])
 			return (0);
@@ -56,13 +56,13 @@ int 	checker(t_info *info)
 int		main(int argc, char **argv)
 {
 	t_info	*info;
-	int 	result;
+	int		result;
 
 	info = receive_values(argc, argv);
 	receive_instr(info);
 	result = checker(info);
 	if (result == -1)
-		ft_error(NULL);//check in subject
+		ft_error(NULL);
 	else if (result == 0)
 		ft_putendl("KO");
 	else

@@ -25,29 +25,29 @@ void	do_three(t_info *info)
 	}
 }
 
-void	push_to(t_info *info)
+void	push_to(t_info *inf)
 {
-	int 	*rot;
+	int		*r;
 
-	while (((!info->reversed && (info->a_size > 3)) || info->reversed) && info->a_size > 0)
+	while (((!inf->rev && (inf->a_size > 3)) || inf->rev) && inf->a_size > 0)
 	{
-		rot = get_ind(info); // can return -1 ?
-		while ((rot[0])-- > 0)
+		r = get_ind(inf);
+		while ((r[0])-- > 0)
 		{
-			if (rot[1] && info->a[0] != rot[2] && info->b_size && info->b[0] != rot[3])
-				add_and_exec(info, rot[1]);
-			else if (rot[1] && info->a[0] != rot[2])
-				add_and_exec(info, rot[1] == INSTR_RR ? INSTR_RA : INSTR_RRA);
-			else if (rot[1] && info->b[0] != rot[3])
-				add_and_exec(info, rot[1] == INSTR_RR ? INSTR_RB : INSTR_RRB);
-			else if (info->a[0] != rot[2])
-				add_and_exec(info, rot[4]);
-			else if (info->b[0] != rot[3])
-				add_and_exec(info, rot[5]);
+			if (r[1] && inf->a[0] != r[2] && inf->b_size && inf->b[0] != r[3])
+				add_and_exec(inf, r[1]);
+			else if (r[1] && inf->a[0] != r[2])
+				add_and_exec(inf, r[1] == INSTR_RR ? INSTR_RA : INSTR_RRA);
+			else if (r[1] && inf->b[0] != r[3])
+				add_and_exec(inf, r[1] == INSTR_RR ? INSTR_RB : INSTR_RRB);
+			else if (inf->a[0] != r[2])
+				add_and_exec(inf, r[4]);
+			else if (inf->b[0] != r[3])
+				add_and_exec(inf, r[5]);
 		}
-		free(rot);
-		add_and_exec(info, INSTR_PB);
+		free(r);
+		add_and_exec(inf, INSTR_PB);
 	}
-	if (!info->reversed)
-		do_three(info);
+	if (!inf->rev)
+		do_three(inf);
 }

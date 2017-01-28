@@ -55,5 +55,4 @@ void	add_and_exec(t_info *info, int instr)
 {
 	add_instr(info, instr);
 	exec_instr(info, instr);
-//	display_ab(info);
 }

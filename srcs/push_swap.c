@@ -12,13 +12,12 @@
 
 #include <push_swap.h>
 
-
 void	push_swap(t_info *info)
 {
 	t_info	*rev_info;
 	char	*optimized;
 
-	push_to(info); // was excl
+	push_to(info);
 	rev_info = reverse_info(info);
 	push_to(rev_info);
 	merge_infos(info, rev_info);
@@ -42,23 +41,10 @@ void	pause_for(int t)
 		i++;
 }
 
-void	print_result(char *ops, t_info *cp_info)
+void	print_stats(t_info *cp_info, int *each_op)
 {
-	int instr;
-	int *each_op;
-	int i;
+	int	i;
 
-	each_op = (int*)ft_memalloc(sizeof(int) * 12);
-	(cp_info->display_stacks) ? display_ab(cp_info) : (0);
-	while ((instr = get_next_instr(&ops)) != -1)
-	{
-		(cp_info->print_slow) ? pause_for(1) : (0);
-		(cp_info->display_stacks) ? exec_instr(cp_info, instr) : (0);
-		display_instr(instr, cp_info->color);
-		(cp_info->display_stacks) ? display_ab(cp_info) : (0);
-		(each_op[11])++;
-		(each_op[instr])++;
-	}
 	i = -1;
 	if (cp_info->each_op || cp_info->display_number)
 	{
@@ -82,6 +68,25 @@ void	print_result(char *ops, t_info *cp_info)
 		ft_putendl(" total");
 		ft_textcolor(NOCOLOR);
 	}
+}
+
+void	print_result(char *ops, t_info *cp_info)
+{
+	int instr;
+	int *each_op;
+
+	each_op = (int*)ft_memalloc(sizeof(int) * 12);
+	(cp_info->display_stacks) ? display_ab(cp_info) : (0);
+	while ((instr = get_next_instr(&ops)) != -1)
+	{
+		(cp_info->print_slow) ? pause_for(1) : (0);
+		(cp_info->display_stacks) ? exec_instr(cp_info, instr) : (0);
+		display_instr(instr, cp_info->color);
+		(cp_info->display_stacks) ? display_ab(cp_info) : (0);
+		(each_op[11])++;
+		(each_op[instr])++;
+	}
+	print_stats(cp_info, each_op);
 	free(each_op);
 }
 

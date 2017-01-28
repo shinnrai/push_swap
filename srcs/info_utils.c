@@ -30,31 +30,28 @@ void	del_rev_info(t_info **rev_info)
 
 void	merge_infos(t_info *info, t_info *rev_info)
 {
-	char			*rev_ops;
-	char 			*ops;
+	char			*tmp;
+	char			*ops;
 	register int	i;
 
-	rev_ops = rev_info->ops;
 	ops = ft_strnew(ft_strlen(rev_info->ops));
 	i = -1;
 	info->a_size = info->size;
 	info->b_size = 0;
-	while (*rev_ops)
+	while (rev_info->ops[++i])
 	{
-		++i;
-		if (*rev_ops == 'a')
+		if (rev_info->ops[i] == 'a')
 			ops[i] = 'b';
-		else if (*rev_ops == 'b')
+		else if (rev_info->ops[i] == 'b')
 			ops[i] = 'a';
 		else
-			ops[i] = *rev_ops;
-		rev_ops++;
+			ops[i] = rev_info->ops[i];
 	}
 	if (*ops)
 	{
-		rev_ops = info->ops;
+		tmp = info->ops;
 		info->ops = ft_strjoin(info->ops, ops);
-		free(rev_ops);
+		free(tmp);
 	}
 	free(ops);
 }
@@ -73,7 +70,7 @@ t_info	*copy_info(t_info *info)
 	copy_info->ops = ft_strdup(info->ops);
 	copy_info->size = info->size;
 	copy_info->color = info->color;
-	copy_info->reversed = false;
+	copy_info->rev = false;
 	copy_info->display_number = info->display_number;
 	copy_info->display_stacks = info->display_stacks;
 	copy_info->each_op = info->each_op;
@@ -90,8 +87,8 @@ t_info	*reverse_info(t_info *info)
 	rev_info->b_size = info->a_size;
 	rev_info->a = info->b;
 	rev_info->a_size = info->b_size;
-	rev_info->ops = ft_sstrnew(0);
+	rev_info->ops = ft_strnew(0);
 	rev_info->size = info->size;
-	rev_info->reversed = true;
+	rev_info->rev = true;
 	return (rev_info);
 }

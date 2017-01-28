@@ -51,7 +51,7 @@ static int	check_options(t_info *info, int argc, char **argv)
 	return (i);
 }
 
-void	setup_info(t_info *info, int argc)
+void		setup_info(t_info *info, int argc)
 {
 	info->a = (int*)malloc(sizeof(int) * argc);
 	info->b = (int*)ft_memalloc(sizeof(int) * argc);
@@ -59,18 +59,16 @@ void	setup_info(t_info *info, int argc)
 	info->a_size = argc;
 	info->b_size = 0;
 	info->ops = ft_strnew(0);
-	info->reversed = false;
+	info->rev = false;
 }
 
-t_info	*receive_values(int argc, char **argv)
+t_info		*receive_values(int argc, char **argv)
 {
 	register int	i;
-	int 			options;
+	int				options;
 	t_info			*info;
 
-	if (argc-- == 1)
-		exit(0);
-	argv++;
+	(argc-- == 1) ? exit(0) : argv++;
 	info = (t_info*)malloc(sizeof(t_info));
 	options = check_options(info, argc, argv);
 	argc -= options;
@@ -84,8 +82,6 @@ t_info	*receive_values(int argc, char **argv)
 		argc = i;
 	}
 	setup_info(info, argc);
-	if (!info->a || !info->b)
-		ft_error(NULL);
 	i = argc;
 	while (i-- > 0)
 	{

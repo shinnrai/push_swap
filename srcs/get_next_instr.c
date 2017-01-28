@@ -12,7 +12,7 @@
 
 #include <push_swap.h>
 
-int 	get_next_instr(char **instr)
+int		get_next_instr(char **instr)
 {
 	int instr_res;
 

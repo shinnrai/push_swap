@@ -26,7 +26,7 @@ static void	display_stack(int *stack, int size)
 	write(1, "\n", 1);
 }
 
-void	display_instr(int instr, bool color)
+void		display_instr(int instr, bool color)
 {
 	char	*arr[11];
 
@@ -54,25 +54,25 @@ void	display_instr(int instr, bool color)
 	color ? ft_textcolor(NOCOLOR) : (0);
 }
 
-void	display_a(t_info *info)
+void		display_a(t_info *info)
 {
 	write(1, "a:\t", 3);
-	if (info->reversed)
+	if (info->rev)
 		display_stack(info->b, info->b_size);
 	else
 		display_stack(info->a, info->a_size);
 }
 
-void	display_b(t_info *info)
+void		display_b(t_info *info)
 {
 	write(1, "b:\t", 3);
-	if (info->reversed)
+	if (info->rev)
 		display_stack(info->a, info->a_size);
 	else
 		display_stack(info->b, info->b_size);
 }
 
-void	display_ab(t_info *info)
+void		display_ab(t_info *info)
 {
 	display_a(info);
 	display_b(info);

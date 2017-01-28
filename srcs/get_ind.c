@@ -21,11 +21,13 @@
 **  op[5] - instr to b
 */
 
-static int find_ind_b_to_push(t_info *info, int a_val)
+#define CHOOSE_IND(i, ia) (i->rev) ? ind_rev(i, i->a[ia]) : ind_b(i, i->a[ia])
+
+static int	ind_b(t_info *info, int a_val)
 {
 	register int	i;
-	int 			ind_max_in_b;
-	int 			ind_min_in_b;
+	int				ind_max_in_b;
+	int				ind_min_in_b;
 
 	i = 0;
 	ind_max_in_b = 0;
@@ -46,16 +48,16 @@ static int find_ind_b_to_push(t_info *info, int a_val)
 	return (-1);
 }
 
-static int	find_ind_rev_to_push(t_info *info, int a_val)
+static int	ind_rev(t_info *info, int a_val)
 {
 	register int	i;
-	int 			ind_max_in_b;
-	int 			ind_min_in_b;
+	int				ind_max_in_b;
+	int				ind_min_in_b;
 
 	i = 0;
 	ind_max_in_b = 0;
 	ind_min_in_b = 0;
-	while (++i < info->b_size) //finding max and min value in b
+	while (++i < info->b_size)
 		if (info->b[i] < info->b[ind_min_in_b])
 			ind_min_in_b = i;
 		else if (info->b[i] > info->b[ind_max_in_b])
@@ -71,20 +73,19 @@ static int	find_ind_rev_to_push(t_info *info, int a_val)
 	return (-1);
 }
 
-int 		*calc_one(t_info *info, int i_a)
+/*
+**  CHOOSE_IND can cause errors
+*/
+
+int			*calc_one(t_info *info, int i_a)
 {
 	register int	i_b;
 	int				tmp;
 	int				*op;
 
-	if (info->b_size < 2)
-		i_b = 0;
-	else
-		i_b = (info->reversed) ? find_ind_rev_to_push(info, info->a[i_a])
-							   : find_ind_b_to_push(info, info->a[i_a]);
+	i_b = (info->b_size < 2) ? 0 : CHOOSE_IND(info, i_a);
 	op = (int*)malloc(sizeof(int) * 6);
-	op[0] = (HOW_MANY_TO_ROTATE(i_a, info->a_size)) +
-			(HOW_MANY_TO_ROTATE(i_b, info->b_size));
+	op[0] = (TO_ROT(i_a, info->a_size)) + (TO_ROT(i_b, info->b_size));
 	op[1] = 0;
 	op[2] = info->a[i_a];
 	op[3] = info->b[i_b];
@@ -106,7 +107,7 @@ int 		*calc_one(t_info *info, int i_a)
 static int	**calc_how_many_ops(t_info *info)
 {
 	register int	i_a;
-	int 			**ops;
+	int				**ops;
 
 	i_a = 0;
 	ops = malloc(sizeof(int*) * info->a_size);
@@ -118,34 +119,28 @@ static int	**calc_how_many_ops(t_info *info)
 	return (ops);
 }
 
-int		*get_ind(t_info *info)
+int			*get_ind(t_info *info)
 {
-	int 			i;
-	int 			**ops;
-	int 			min_ind;
-	int 			*rot;
+	int				i;
+	int				**ops;
+	int				min_ind;
+	int				*rot;
 
-	if (info->a_size == 0)
-		return (NULL); // check for this not here
 	ops = calc_how_many_ops(info);
-	min_ind = -1; // can cause seg fault
+	min_ind = -1;
 	i = -1;
 	while (++i < info->a_size)
 		if (min_ind == -1 || ops[i][0] < ops[min_ind][0])
 		{
-			if (min_ind != -1)
-				free(ops[min_ind]);
+			(min_ind != -1) ? free(ops[min_ind]) : (0);
 			min_ind = i;
 		}
 		else
 			free(ops[i]);
 	rot = (int*)malloc(sizeof(int) * 6);
-	rot[0] = ops[min_ind][0];
-	rot[1] = ops[min_ind][1];
-	rot[2] = ops[min_ind][2];
-	rot[3] = ops[min_ind][3];
-	rot[4] = ops[min_ind][4];
-	rot[5] = ops[min_ind][5];
+	i = -1;
+	while (++i < 6)
+		rot[i] = ops[min_ind][i];
 	free(ops[min_ind]);
 	free(ops);
 	return (rot);

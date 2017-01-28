@@ -34,7 +34,7 @@ typedef struct		s_info
 	int				b_size;
 	int				size;
 	char			*ops;
-	bool			reversed;
+	bool			rev;
 	bool			color;
 	bool			display_stacks;
 	bool			print_slow;
@@ -54,7 +54,7 @@ typedef struct		s_info
 # define INSTR_RRB	9
 # define INSTR_RRR	10
 
-# define HOW_MANY_TO_ROTATE(a, size) (a) > ((size) / 2) ? (size) - (a) : (a)
+# define TO_ROT(a, size) (a) > ((size) / 2) ? (size) - (a) : (a)
 # define CHOOSE_INSTR_A(a, size) (a) > ((size) / 2) ? (INSTR_RRA) : (INSTR_RA)
 # define CHOOSE_INSTR_B(b, size) (b) > ((size) / 2) ? (INSTR_RRB) : (INSTR_RB)
 # define HOW_MANY_TO_RR(a, b) MAX((a), (b))
